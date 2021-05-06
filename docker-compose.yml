@@ -1,0 +1,16 @@
+version: '2.2'
+
+services:
+  cube:
+    image: cubejs/cube:latest
+    ports:
+      # 4000 is the port for the Cube.js API
+      - ${APP_API_PORT}:4000
+      # 3000 is the port for the Dashboard app, and is available only in
+      # development mode
+      - ${APP_DASHBOARD_PORT}:3000
+    env_file:
+      - .env
+    volumes:
+      - .:/cube/conf
+    restart: "on-failure"
