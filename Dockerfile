@@ -14,6 +14,8 @@ RUN apt-get update && \
     libtool \
     libcurl4-openssl-dev
 
+RUN pip install --upgrade cmake
+
 COPY . .
 
 RUN npm install aws-lambda-ric
