@@ -14,7 +14,8 @@ RUN apt-get update && \
     libtool \
     libcurl4-openssl-dev
 
-RUN pip install --upgrade cmake
+RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade cmake
 
 COPY . .
 
