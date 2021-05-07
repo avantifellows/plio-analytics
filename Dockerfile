@@ -25,4 +25,3 @@ RUN npm install aws-lambda-ric
 RUN npm install
 
 ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
-CMD ["app.handler"]
