@@ -18,6 +18,8 @@ FROM cubejs/cube:latest
 # RUN python -m pip install --upgrade pip
 # RUN python -m pip install --upgrade cmake
 
+RUN mkdir schema
+
 COPY . .
 
 # RUN npm install aws-lambda-ric
@@ -25,4 +27,4 @@ COPY . .
 # RUN npm install
 
 # ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
-# CMD ["cube.handler"]
+# CMD ["app.handler"]
