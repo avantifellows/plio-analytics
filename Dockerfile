@@ -12,6 +12,7 @@ RUN apt-get update && \
     autoconf \
     automake \
     libtool \
+    python-pip \
     libcurl4-openssl-dev
 
 RUN python -m pip install --upgrade pip
