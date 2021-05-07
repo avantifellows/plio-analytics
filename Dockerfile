@@ -7,6 +7,11 @@ RUN apt-get update && \
     make \
     cmake \
     unzip \
+    tar \
+    gzip \
+    autoconf \
+    automake \
+    libtool \
     libcurl4-openssl-dev
 
 COPY . .
