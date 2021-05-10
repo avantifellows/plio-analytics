@@ -52,12 +52,15 @@ cube(`GroupedSessionAnswer`, {
       session.user_id,
       sessionAnswer.id,
       sessionAnswer.answer,
-      item.type AS item_type
+      item.type AS item_type,
+      question.type AS question_type,
+		  question.correct_answer AS question_correct_answer
     FROM ${GroupedSession.sql()} AS session
     INNER JOIN ${SessionAnswer.sql()} as sessionAnswer
     ON session.id=sessionAnswer.session_id
     INNER JOIN ${Item.sql()} as item
-    ON item.id=sessionAnswer.item_id`,
+    ON item.id=sessionAnswer.item_id
+    INNER JOIN ${Question.sql()} as question ON question.item_id = item.id`,
 
   joins: {
     Session: {
@@ -71,10 +74,6 @@ cube(`GroupedSessionAnswer`, {
     Plio: {
       sql: `${CUBE}.plio_id = ${Plio}.id`,
       relationship: `belongsTo`,
-    },
-    Item: {
-      sql: `${CUBE}.item_id = ${Item}.id`,
-      relationship: `hasOne`,
     },
   },
 
@@ -101,6 +100,7 @@ cube(`AggregateSessionMetrics`, {
       plio_id,
       user_id,
       COUNT(case when answer::int IS NULL then NULL else 1 end) AS num_answered,
+      COUNT(case when question_type = 'mcq' AND answer = question_correct_answer then 1 else NULL end) AS num_correct,
       COUNT(*) AS num_questions
     FROM ${GroupedSessionAnswer.sql()} AS sessionAnswer
     WHERE sessionAnswer.item_type = 'question'
@@ -128,6 +128,10 @@ cube(`AggregateSessionMetrics`, {
     },
     completionPercentage: {
       sql: `100.0 * ${CUBE}.num_answered / ${CUBE}.num_questions`,
+      type: `avg`,
+    },
+    accuracy: {
+      sql: `100.0 * ${CUBE}.num_correct / NULLIF(${CUBE}.num_answered, 0)`,
       type: `avg`,
     },
   },
