@@ -51,10 +51,13 @@ cube(`GroupedSessionAnswer`, {
       session.plio_id,
       session.user_id,
       sessionAnswer.id,
-      sessionAnswer.answer
+      sessionAnswer.answer,
+      item.type AS item_type
     FROM ${GroupedSession.sql()} AS session
     INNER JOIN ${SessionAnswer.sql()} as sessionAnswer
-    ON session.id=sessionAnswer.session_id`,
+    ON session.id=sessionAnswer.session_id
+    INNER JOIN ${Item.sql()} as item
+    ON item.id=sessionAnswer.item_id`,
 
   joins: {
     Session: {
@@ -68,6 +71,10 @@ cube(`GroupedSessionAnswer`, {
     Plio: {
       sql: `${CUBE}.plio_id = ${Plio}.id`,
       relationship: `belongsTo`,
+    },
+    Item: {
+      sql: `${CUBE}.item_id = ${Item}.id`,
+      relationship: `hasOne`,
     },
   },
 
@@ -93,7 +100,7 @@ cube(`AggregateSessionMetrics`, {
       ROW_NUMBER() OVER (ORDER BY plio_id, user_id) as id,
       plio_id, user_id, COUNT(*) as num_answered
     FROM ${GroupedSessionAnswer.sql()} AS sessionAnswer
-    WHERE sessionAnswer.answer::int IS NOT NULL
+    WHERE (sessionAnswer.answer::int IS NOT NULL AND sessionAnswer.item_type = 'question')
     GROUP BY user_id, plio_id`,
 
   joins: {
