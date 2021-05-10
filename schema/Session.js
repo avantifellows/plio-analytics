@@ -68,16 +68,18 @@ cube(`Session`, {
 cube(`GroupedSession`, {
   sql: `
     WITH summary AS (
-    SELECT session.plio_id,
-         session.user_id,
-         session.watch_time,
-         ROW_NUMBER() OVER(PARTITION BY session.user_id, session.plio_id
-                           ORDER BY session.watch_time DESC) AS id
-         FROM "public"."session"
+    SELECT
+        session.id,
+        session.plio_id,
+        session.user_id,
+        session.watch_time,
+        ROW_NUMBER() OVER(PARTITION BY session.user_id, session.plio_id
+                          ORDER BY session.watch_time DESC) AS rank
+        FROM "public"."session"
      )
     SELECT *
         FROM summary
-    WHERE id = 1
+    WHERE rank = 1
     `,
 
   joins: {
@@ -93,6 +95,10 @@ cube(`GroupedSession`, {
   },
 
   measures: {
+    count: {
+      sql: `id`,
+      type: `count`,
+    },
     averageWatchTime: {
       sql: `watch_time`,
       type: `avg`,
