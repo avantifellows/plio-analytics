@@ -98,9 +98,12 @@ cube(`AggregateSessionMetrics`, {
   sql: `
     SELECT
       ROW_NUMBER() OVER (ORDER BY plio_id, user_id) as id,
-      plio_id, user_id, COUNT(*) as num_answered
+      plio_id,
+      user_id,
+      COUNT(case when answer::int IS NULL then NULL else 1 end) AS num_answered,
+      COUNT(*) AS num_questions
     FROM ${GroupedSessionAnswer.sql()} AS sessionAnswer
-    WHERE (sessionAnswer.answer::int IS NOT NULL AND sessionAnswer.item_type = 'question')
+    WHERE sessionAnswer.item_type = 'question'
     GROUP BY user_id, plio_id`,
 
   joins: {
@@ -121,6 +124,10 @@ cube(`AggregateSessionMetrics`, {
     },
     numQuestionsAnswered: {
       sql: `num_answered`,
+      type: `avg`,
+    },
+    completionPercentage: {
+      sql: `100.0 * ${CUBE}.num_answered / ${CUBE}.num_questions`,
       type: `avg`,
     },
   },
