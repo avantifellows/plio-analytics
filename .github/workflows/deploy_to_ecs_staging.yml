@@ -3,7 +3,7 @@
 on:
   pull_request:
   push:
-    branches: ["feature/deployment"]
+    branches: ["master"]
 
 name: Deploy to ECS - staging
 
