@@ -1,5 +1,10 @@
+const {
+  securityContext: { tenantSchema },
+} = COMPILE_CONTEXT;
+// const { organizationTenantSchema } = COMPILE_CONTEXT;
+
 cube(`Plio`, {
-  sql: `SELECT * FROM public.plio`,
+  sql: `SELECT * FROM ${tenantSchema}.plio`,
 
   joins: {},
 

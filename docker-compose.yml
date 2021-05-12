@@ -5,7 +5,7 @@ services:
     image: cubejs/cube:latest
     ports:
       # 4000 is the port for the Cube.js API
-      - ${APP_API_PORT}:4000
+      - ${PORT}:4000
       # 3000 is the port for the Dashboard app, and is available only in
       # development mode
       - ${APP_DASHBOARD_PORT}:3000
