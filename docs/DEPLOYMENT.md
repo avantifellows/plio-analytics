@@ -32,7 +32,7 @@ Follow the steps below to set up the staging environment on AWS.
 
 1. Login to your AWS console.
 
-2. Go to VPC. (skip this step if you've already created a VPC when setting up the frontend or analytics repository)
+2. Go to VPC. (skip this step if you've already created a VPC when setting up the frontend or backend repository)
    1. Create a new VPC.
    2. Name it `plio-staging`.
    3. In IPv4 CIDR block, enter `10.0.0.0/16` - this will reserve 256 * 256 IPs within the VPC.
@@ -107,7 +107,7 @@ Follow the steps below to set up the staging environment on AWS.
     8.  Save the container definition and the task definition.
     9.  You will see the new task definition within the list of all task definitions.
 
-8. Under ECS, go to `Clusters` and create a new cluster with the name `plio-staging-cluster`. (skip this step if you've already created a Cluster when setting up the frontend repository)
+8. Under ECS, go to `Clusters` and create a new cluster with the name `plio-staging-cluster`. (skip this step if you've already created a Cluster when setting up the frontend/backend repository)
     1. Select `Networking only`. We will go with serverless deployment so that we don't worry about managing our own server instances.
     2. Don't create a new VPC for your cluster. We'll use the VPC created in previous step in the next step of creating a service.
     3. Click on the create button.
@@ -141,7 +141,7 @@ Follow the steps below to set up the staging environment on AWS.
       7. Enter `6379` as the `Port`.
       8. No need to change anything for `Parameter Group`.
       9. Choose your `Node Type`. Plio uses `cache.t2.micro`. More details [here](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/nodes-select-size.html#CacheNodes.SelectSize).
-      10. For `Number of replicas`, enter `2`.
+      10. For `Number of replicas`, enter `0`. Note: Each replica node will carry it's own cost. More on pricing [here](https://aws.amazon.com/elasticache/pricing/) and [here](https://www.reddit.com/r/aws/comments/cojaq6/questions_about_elasticache_pricing/).
       11. For high availability, select the `Multi AZ` checkbox. Take a note that this may almost double your monthly expense. More details [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html).
       12. Select `Advanced Redis settings` and fill in the details as mentioned below.
           1. For `Subnet group`, create a new group.
