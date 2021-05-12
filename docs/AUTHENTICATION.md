@@ -15,6 +15,7 @@ For more details on Auth0 configuration, check out the [official documentation f
    1. You will see an application was created automatically with your api name and `(Test application)`.
    2. Select this app and go to settings tab. Rename by removing the (Test Application) part and save.
 4. To test your set up, go to Quick Start tab and copy the example code for "Getting an access token for your API". Run the command in your shell. It should return a valid response with access token, expiry time and token type.
+5. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/blob/master/docs/ENV.md#auth0-for-plio-analytics) with the Auth0 app settings.
 
 
 ### Configuring CUBE_JS environment variables
