@@ -103,7 +103,6 @@ Follow the steps below to set up the staging environment on AWS.
        2. For production, set `CUBEJS_DEV_MODE` to false.
        3. Ignore the variables under `local web server`.
        4. Leave the variables `CUBEJS_REDIS_URL` and `CUBEJS_REDIS_PASSWORD` as empty for now. We'll fill them up later.
-       5. Ignore the variables under `local web server`.
     8.  Save the container definition and the task definition.
     9.  You will see the new task definition within the list of all task definitions.
 
