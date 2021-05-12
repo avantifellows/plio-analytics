@@ -7,15 +7,16 @@ For more details on Auth0 configuration, check out the [official documentation f
 
 ### Configurating Auth0
 1. Sign up or log into your [Auth0 account](https://auth0.com/).
-2. From the left navigation, go to APIs and create a new API.
+2. Create a new tenant with the name `plio-analytics-staging` (or `plio-analytics-production` for production).
+3. From the left navigation, go to APIs and create a new API.
    1. Name your API.
-   2. Set the identifier to your app url. Like `https://myapp.com/`. This must be a unique identifier and not to be reused in other APIs.
+   2. Set the identifier to your app url. Like `https://staging-analytics.plio.in/`. This must be a unique identifier and not to be reused in other APIs.
    3. Signing Algorithm should be `RS256`.
-3. From the left navigation, go to Applications.
+4. From the left navigation, go to Applications.
    1. You will see an application was created automatically with your api name and `(Test application)`.
    2. Select this app and go to settings tab. Rename by removing the (Test Application) part and save.
-4. To test your set up, go to Quick Start tab and copy the example code for "Getting an access token for your API". Run the command in your shell. It should return a valid response with access token, expiry time and token type.
-5. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/blob/master/docs/ENV.md#auth0-for-plio-analytics) with the Auth0 app settings.
+5. To test your set up, go to Quick Start tab and copy the example code for "Getting an access token for your API". Run the command in your shell. It should return a valid response with access token, expiry time and token type.
+6. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/blob/master/docs/ENV.md#auth0-for-plio-analytics) with the Auth0 app settings.
 
 
 ### Configuring CUBE_JS environment variables
