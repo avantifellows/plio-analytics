@@ -4,11 +4,6 @@ module.exports = {
         const tenantSchema = req.headers['organization']
         req.securityContext = { tenantSchema }
     },
-    extendContext: async (req) => {
-        return {
-            'organizationTenantSchema': 'abcd',
-        };
-    },
     http: {
         cors: {
             allowedHeaders: ['authorization', 'organization', 'x-request-id', 'Referer']
