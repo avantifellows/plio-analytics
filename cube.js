@@ -1,9 +1,7 @@
 module.exports = {
-  contextToAppId: ({ securityContext }) =>
-    `CUBEJS_APP_${securityContext.tenantSchema}`,
-  checkAuth: (req, token) => {
-    const tenantSchema = req.headers["organization"];
-    req.securityContext = { tenantSchema };
+  contextToAppId: (context) => `CUBEJS_APP_${context.tenantSchema}`,
+  extendContext: (req) => {
+    return {"tenantSchema": req.headers.organization}
   },
   http: {
     cors: {
