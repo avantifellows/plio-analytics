@@ -1,7 +1,7 @@
 module.exports = {
   contextToAppId: (context) => `CUBEJS_APP_${context.tenantSchema}`,
   extendContext: (req) => {
-    return {"tenantSchema": req.headers.organization}
+    return { tenantSchema: req.headers.organization };
   },
   http: {
     cors: {
