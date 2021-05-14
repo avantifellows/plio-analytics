@@ -1,5 +1,7 @@
+const { tenantSchema } = COMPILE_CONTEXT;
+
 cube(`Question`, {
-  sql: `SELECT * FROM public.question`,
+  sql: `SELECT * FROM ${tenantSchema}.question`,
 
   joins: {
     Item: {
