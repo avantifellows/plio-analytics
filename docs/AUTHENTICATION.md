@@ -19,7 +19,7 @@ Use the steps below to configure Auth0:
    1. You will see an application was created automatically with your api name and `(Test application)`.
    2. Select this app and go to settings tab. Rename by removing the (Test Application) part and save.
 5. To test your set up, go to Quick Start tab and copy the example code for "Getting an access token for your API". Run the command in your shell. It should return a valid response with access token, expiry time and token type.
-6. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/plio-backend/blob/master/docs/ENV.md#auth0-for-plio-analytics) with the Auth0 app settings.
+6. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/plio-backend/blob/master/docs/ENV.md#identity-provider-for-plio-analytics) with the Auth0 app settings.
 
 For more details on Auth0 configuration, check out the [official documentation from Cube.js](https://cube.dev/docs/security/jwt/auth0).
 
@@ -88,8 +88,9 @@ curl --location --request POST \
 'https://<DOMAIN-URL>/oauth2/token?grant_type=client_credentials&client_id=<APP-CLIENT-ID>&client_secret=<APP-CLIENT-SECRET>' \
 --header 'Content-Type: application/x-www-form-urlencoded'
 ```
-12. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/plio-backend/blob/master/docs/ENV.md#auth0-for-plio-analytics) with the Auth0 app settings.
+12. Make sure you have updated the Plio backend repository [environment variables](https://github.com/avantifellows/plio-backend/blob/master/docs/ENV.md#identity-provider-for-plio-analytics) with the Cognito app settings.
 
+For more details on Cognito configuration, check out the [official documentation from Cube.js](https://cube.dev/docs/security/jwt/aws-cognito).
 
 #### Configuring CUBE_JS environment variables for AWS Cognito
 Add the following environment variables for this CubeJS project after replacing the `<>` parts with your configs.
