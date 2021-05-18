@@ -66,20 +66,21 @@ Use the steps below to configure Auth0:
    6. Click on Create app client.
    7. Note the `App client id` and `App client secret`. These will be used in later steps.
 8.  Choose `Resource servers` from the navigation bar on the left-side of the console page.
-   1.  Set the name of your resource server. For example: `Plio Staging Analytics Resource server`
-   2.  Set the identifier to the `App client id` you had noted in previous step.
-   3.  Create the following scopes:
+   1.  Select `Add a resource server`.
+   2.  Set the name of your resource server. For example: `Plio Staging Analytics Resource server`
+   3.  Set the identifier to the `App client id` you had noted in previous step.
+   4.  Create the following scopes:
        1.  Name: `post`, Description: `post requests`
        2.  Name: `get`, Description: `get requests`
-   4.  Create the resource server by clicking on save changes.
+   5.  Create the resource server by clicking on save changes.
 9.  Choose `App client settings` from the navigation bar on the left-side of the console page.
     1.  Select Cognito User Pool as one of the Enabled Identity Providers.
-    2.  Enter the callback URL and signout urls.
+    2.  You can skip the `callback urls` and `signout urls` as they are not needed for client credentials type.
     3.  Check the `client credentials` option under Allowed Oauth Flows.
     4.  Select the custom scopes for `<client-id>/get` and `<client-id>/post` that you created in previous step.
     5.  Click on save changes.
 10. Choose `Domain name` from the navigation bar on the left-side of the console page.
-    1.  Enter the domain prefix and click on save.
+    1.  Enter the domain prefix and click on save. For example: `plio-analytics`.
     2.  The complete url will be used to generate access tokens.
     3.  Note the url.
 11. To test your set up, run the following command in your shell. Make sure to update the values within `<>` as per your settings. It should return a valid response with access token, expiry time and token type.
