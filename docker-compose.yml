@@ -1,14 +1,6 @@
 version: '2.2'
 
 services:
-#   cubestore:
-#     image: cubejs/cubestore:latest
-#     ports:
-#       - 3030:3030
-#     environment:
-#       - CUBESTORE_REMOTE_DIR=/cube/data
-#     volumes:
-#       - .cubestore:/cube/data
   cube:
     image: cubejs/cube:latest
     ports:
@@ -19,10 +11,6 @@ services:
     #   - ${APP_DASHBOARD_PORT}:3000
     env_file:
       - .env
-    # depends_on:
-    #   - cubestore
-    # links:
-    #   - cubestore
     volumes:
       - .:/cube/conf
     restart: "on-failure"
