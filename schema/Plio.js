@@ -1,4 +1,4 @@
-const { tenantSchema } = COMPILE_CONTEXT;
+const { securityContext: { tenantSchema } } = COMPILE_CONTEXT;
 
 cube(`Plio`, {
   sql: `SELECT * FROM ${tenantSchema}.plio`,
@@ -62,6 +62,14 @@ cube(`Plio`, {
     deleted: {
       sql: `deleted`,
       type: `time`,
+    },
+  },
+
+  preAggregations: {
+    plioStatuses: {
+      type: `rollup`,
+      dimensionReferences: [status],
+      scheduledRefresh: true,
     },
   },
 
