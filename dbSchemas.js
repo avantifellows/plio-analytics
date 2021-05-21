@@ -3,12 +3,12 @@
 let schemas = process.env.PLIO_ORGANIZATIONS_SCHEMAS.split(",");
 
 let dbSchemas = [];
-schemas.forEach(schemaName => {
-    dbSchemas.push({
-        securityContext: {
-            tenantSchema: schemaName
-        }
-    });
+schemas.forEach((schemaName) => {
+  dbSchemas.push({
+    securityContext: {
+      tenantSchema: schemaName,
+    },
+  });
 });
 
 module.exports = dbSchemas;

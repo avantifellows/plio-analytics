@@ -4,13 +4,15 @@ module.exports = {
   scheduledRefreshContexts: async () => {
     return dbSchemas;
   },
-  contextToAppId: ({securityContext}) => `CUBEJS_APP_${securityContext.tenantSchema}`,
-  preAggregationsSchema: ({securityContext}) => `pre_aggregations_${securityContext.tenantSchema}`,
+  contextToAppId: ({ securityContext }) =>
+    `CUBEJS_APP_${securityContext.tenantSchema}`,
+  preAggregationsSchema: ({ securityContext }) =>
+    `pre_aggregations_${securityContext.tenantSchema}`,
   extendContext: (request) => {
     return {
       securityContext: {
-          tenantSchema: request.headers.organization
-      }
+        tenantSchema: request.headers.organization,
+      },
     };
   },
   http: {
