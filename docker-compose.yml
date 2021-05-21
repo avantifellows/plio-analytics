@@ -8,7 +8,7 @@ services:
       - ${PORT}:4000
       # 3000 is the port for the Dashboard app, and is available only in
       # development mode
-    #   - ${APP_DASHBOARD_PORT}:3000
+      - ${APP_DASHBOARD_PORT}:3000
     env_file:
       - .env
     volumes:
