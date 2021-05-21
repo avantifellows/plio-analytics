@@ -65,13 +65,5 @@ cube(`Plio`, {
     },
   },
 
-  preAggregations: {
-    plioStatuses: {
-      type: `rollup`,
-      dimensionReferences: [status],
-      scheduledRefresh: true,
-    },
-  },
-
   dataSource: `default`,
 });

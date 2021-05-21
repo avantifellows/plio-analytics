@@ -98,13 +98,5 @@ cube(`User`, {
     },
   },
 
-  preAggregations: {
-    userStatuses: {
-      type: `rollup`,
-      dimensionReferences: [status],
-      scheduledRefresh: true,
-    },
-  },
-
   dataSource: `default`,
 });
