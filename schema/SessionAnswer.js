@@ -51,7 +51,7 @@ cube(`SessionAnswer`, {
 cube(`GroupedSessionAnswer`, {
   sql: `
     SELECT
-      session.id AS session_id,
+      session.session_id,
       session.plio_id,
       session.user_id,
       sessionAnswer.id,
@@ -61,7 +61,7 @@ cube(`GroupedSessionAnswer`, {
 		  question.correct_answer AS question_correct_answer
     FROM ${GroupedSession.sql()} AS session
     INNER JOIN ${SessionAnswer.sql()} as sessionAnswer
-    ON session.id=sessionAnswer.session_id
+    ON session.session_id=sessionAnswer.session_id
     INNER JOIN ${Item.sql()} as item
     ON item.id=sessionAnswer.item_id
     INNER JOIN ${Question.sql()} as question ON question.item_id = item.id`,

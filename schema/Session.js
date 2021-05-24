@@ -73,7 +73,7 @@ cube(`GroupedSession`, {
   sql: `
     WITH summary AS (
     SELECT
-        session.id,
+        session.id AS session_id,
         session.plio_id,
         session.user_id,
         session.watch_time,
@@ -97,6 +97,11 @@ cube(`GroupedSession`, {
       sql: `${CUBE}.user_id = ${User}.id`,
       relationship: `belongsTo`,
     },
+
+    Session: {
+      sql: `${CUBE}.session_id = ${Session}.id`,
+      relationship: `belongsTo`,
+    },
   },
 
   measures: {
@@ -111,7 +116,7 @@ cube(`GroupedSession`, {
   },
   dimensions: {
     id: {
-      sql: `id`,
+      sql: `session_id`,
       type: `number`,
       primaryKey: true,
     },
@@ -122,6 +127,7 @@ cube(`GroupedSessionRetention`, {
   sql: `
     SELECT
       ROW_NUMBER() OVER (ORDER BY user_id, plio_id) as id,
+      session_id,
       plio_id,
       user_id,
       SUM(retention_array) as postOneMinuteRetentionSum
@@ -131,6 +137,7 @@ cube(`GroupedSessionRetention`, {
           *
         FROM (
           SELECT
+            session_id,
             plio_id,
             user_id,
             UNNEST(string_to_array(retention, ','))::int AS retention_array
@@ -139,7 +146,7 @@ cube(`GroupedSessionRetention`, {
           ) AS B
         ) AS C
     WHERE index >= 60
-    GROUP BY plio_id, user_id
+    GROUP BY plio_id, user_id, session_id
   `,
 
   joins: {
@@ -150,6 +157,16 @@ cube(`GroupedSessionRetention`, {
 
     User: {
       sql: `${CUBE}.user_id = ${User}.id`,
+      relationship: `belongsTo`,
+    },
+
+    Session: {
+      sql: `${CUBE}.session_id = ${Session}.id`,
+      relationship: `belongsTo`,
+    },
+
+    GroupedSession: {
+      sql: `${CUBE}.session_id = ${GroupedSession}.session_id`,
       relationship: `belongsTo`,
     },
   },
