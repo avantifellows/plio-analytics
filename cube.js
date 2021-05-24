@@ -11,7 +11,7 @@ module.exports = {
   extendContext: (request) => {
     return {
       securityContext: {
-        tenantSchema: request.headers.organization,
+        tenantSchema: request.headers.organization || "public",
       },
     };
   },
