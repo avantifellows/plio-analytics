@@ -1,7 +1,19 @@
+const dbSchemas = require("./dbSchemas");
+
 module.exports = {
-  contextToAppId: (context) => `CUBEJS_APP_${context.tenantSchema}`,
+  scheduledRefreshContexts: async () => {
+    return dbSchemas;
+  },
+  contextToAppId: ({ securityContext }) =>
+    `CUBEJS_APP_${securityContext.tenantSchema}`,
+  preAggregationsSchema: ({ securityContext }) =>
+    `pre_aggregations_${securityContext.tenantSchema}`,
   extendContext: (request) => {
-    return { tenantSchema: request.headers.organization };
+    return {
+      securityContext: {
+        tenantSchema: request.headers.organization || "public",
+      },
+    };
   },
   http: {
     cors: {

@@ -1,16 +1,12 @@
-const {
-  securityContext: { tenantSchema },
-} = COMPILE_CONTEXT;
-
-cube(`Plio`, {
-  sql: `SELECT * FROM ${tenantSchema}.plio`,
+cube(`Organization`, {
+  sql: `SELECT * FROM public.organization`,
 
   joins: {},
 
   measures: {
     count: {
       type: `count`,
-      drillMembers: [id, name, uuid, createdAt, updatedAt],
+      drillMembers: [id, schemaName, name, shortcode, createdAt, updatedAt],
     },
   },
 
@@ -21,33 +17,18 @@ cube(`Plio`, {
       primaryKey: true,
     },
 
+    schemaName: {
+      sql: `schema_name`,
+      type: `string`,
+    },
+
     name: {
       sql: `name`,
       type: `string`,
     },
 
-    uuid: {
-      sql: `uuid`,
-      type: `string`,
-    },
-
-    failsafeUrl: {
-      sql: `failsafe_url`,
-      type: `string`,
-    },
-
-    status: {
-      sql: `status`,
-      type: `string`,
-    },
-
-    isPublic: {
-      sql: `is_public`,
-      type: `string`,
-    },
-
-    config: {
-      sql: `config`,
+    shortcode: {
+      sql: `shortcode`,
       type: `string`,
     },
 
@@ -58,6 +39,16 @@ cube(`Plio`, {
 
     updatedAt: {
       sql: `updated_at`,
+      type: `time`,
+    },
+
+    lastLogin: {
+      sql: `last_login`,
+      type: `time`,
+    },
+
+    dateJoined: {
+      sql: `date_joined`,
       type: `time`,
     },
 

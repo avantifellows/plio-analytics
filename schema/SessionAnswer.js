@@ -1,4 +1,6 @@
-const { tenantSchema } = COMPILE_CONTEXT;
+const {
+  securityContext: { tenantSchema },
+} = COMPILE_CONTEXT;
 
 cube(`SessionAnswer`, {
   sql: `SELECT * FROM ${tenantSchema}.session_answer`,
