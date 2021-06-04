@@ -13,9 +13,19 @@ You can create a 32-digit secret key from this website: https://generate.plus/en
 #### `CUBEJS_SCHEDULED_REFRESH_TIMER`
 If true, it enables scheduled refreshes. Can also be set to a number representing how many seconds to wait before triggering another refresh. Recommended value is true for production deployments. Defaults to false.
 
-### Database settings
+### `PLIO_ORGANIZATIONS_SCHEMAS`
+**Postgres**
+If you're using Postgres as your Cube.js database, these are the schema names within the database. Run the following query in your postgresql to retrive the list of organization schemas:
+```sql
+SELECT string_agg(schema_name, ',') FROM public.organization;
+```
+
+**BigQuery**
+If you're using BigQuery as your Cube.js database, these are the datasets within your BigQuery project. Use a comma-separated list of all the datasets.
+
+### Database settings (for Postgres)
 #### `CUBEJS_DB_TYPE`
-Database engine for Plio. It should always be `postgres` as added in `.env.example`. However, if you wish to add your own implementation, feel free to change it.
+Database engine for Plio. It should be `postgres` as added in `.env.example`. However, if you wish to add your own implementation, feel free to change it.
 
 #### `CUBEJS_DB_HOST`
 The database host.
@@ -33,6 +43,27 @@ The database user.
 
 #### `CUBEJS_DB_PASS`
 The password for the database user.
+
+### Database settings (for BigQuery)
+You may wish to use BigQuery for your staging or production setup. However, if you want to connect from your local setup, you can do that as well. Configure the following env variables to connect your Cube.js instance to your BigQuery instance. These variables are not defined in `.env.example`.
+
+#### `CUBEJS_DB_TYPE`
+Database engine for Plio. It should be `bigquery`.
+
+#### `CUBEJS_DB_BQ_PROJECT_ID`
+The project id for your bigquery project. Generally, it's the name of your project.
+
+#### `CUBEJS_DB_BQ_CREDENTIALS`
+This is a base64 encoded value of your Google Cloud Platform's service account. You can learn more about acquiring service account credentials [here](https://cloud.google.com/docs/authentication/getting-started) and [here](https://console.cloud.google.com/projectselector2/iam-admin/serviceaccounts?supportedpurview=project). The service account must have BigQuery admin permissions.
+
+Once you have downloaded the JSON file, run the following commands and use the output for this environment variable:
+```sh
+cat /path/to/gcp-service-account-filename.json | base64
+```
+
+#### `CUBEJS_DB_BQ_LOCATION`
+The region of your bigquery setup in Google Cloud Console. You can check this from the dataset info section mentioned above. You can find all supported regions [here](https://cloud.google.com/bigquery/docs/locations#regional-locations).
+
 
 ### Local development server
 #### `PORT`

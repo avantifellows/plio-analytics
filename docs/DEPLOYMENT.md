@@ -98,11 +98,14 @@ Follow the steps below to set up the staging environment on AWS.
     4. Create a new container with name `plio-analytics-staging`.
     5. In the image field, you can just type in `image_arn`. This is not a valid entry and just a placeholder for now as it'll be replaced by the actual image ARN once the GitHub workflow triggers.
     6. Enter port `80` in the port mapping field.
-    7. Use the `.env.example` file to set all the required environment variables for your container in the `Environment Variables` section.
-       1. Set all `CUBEJS_DB_*` variables to your AWS RDS setup. `CUBEJS_DB_TYPE` should be postgres.
-       2. For production, set `CUBEJS_DEV_MODE` to false.
-       3. Ignore the variables under `local web server`.
-       4. Leave the variables `CUBEJS_REDIS_URL` and `CUBEJS_REDIS_PASSWORD` as empty for now. We'll fill them up later.
+    7. Use the `.env.example` file or our [ENV guide](ENV.md) to set all the required environment variables for your container in the `Environment Variables` section.
+       1. For production, set `CUBEJS_DEV_MODE` to false.
+       2. Ignore the variables under `local web server`.
+       3. Leave the variables `CUBEJS_REDIS_URL` and `CUBEJS_REDIS_PASSWORD` as empty for now. We'll fill them up later.
+       4. For Postgres DB
+          1. Set all `CUBEJS_DB_*` variables to your AWS RDS setup. `CUBEJS_DB_TYPE` should be `postgres`.
+       5. For BigQuery
+          1. Set all `CUBEJS_DB_BQ_*` variables to your BigQuery setup. `CUBEJS_DB_TYPE` should be `bigquery`.
     8.  Save the container definition and the task definition.
     9.  You will see the new task definition within the list of all task definitions.
 
