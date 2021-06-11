@@ -13,14 +13,14 @@ You can create a 32-digit secret key from this website: https://generate.plus/en
 #### `CUBEJS_SCHEDULED_REFRESH_TIMER`
 If true, it enables scheduled refreshes. Can also be set to a number representing how many seconds to wait before triggering another refresh. Recommended value is true for production deployments. Defaults to false.
 
-### `PLIO_ORGANIZATIONS_SCHEMAS`
-#### Postgres
+#### `PLIO_ORGANIZATIONS_SCHEMAS`
+##### Postgres
 If you're using Postgres as your Cube.js database, these are the schema names within the database. Run the following query in your postgresql to retrieve the list of organization schemas:
 ```sql
 SELECT string_agg(schema_name, ',') FROM public.organization;
 ```
 
-#### BigQuery
+##### BigQuery
 If you're using BigQuery as your Cube.js database, these are the datasets within your BigQuery project for each organization. Use a comma-separated list of all the dataset names.
 
 ### Database settings (for BigQuery)
