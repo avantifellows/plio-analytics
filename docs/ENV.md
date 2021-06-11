@@ -24,7 +24,7 @@ SELECT string_agg(schema_name, ',') FROM public.organization;
 If you're using BigQuery as your Cube.js database, these are the datasets within your BigQuery project for each organization. Use a comma-separated list of all the dataset names.
 
 ### Database settings (for BigQuery)
-Plio uses BigQuery for the Analytics data warehouse. You may wish to use BigQuery for your staging or production setup. However, if you want to connect to BigQuery from your local setup, you can do that as well. Configure the following env variables to connect your Cube.js instance to your BigQuery instance.
+Plio uses BigQuery for the Analytics data warehouse. Configure the following env variables to connect your Cube.js instance to your BigQuery instance.
 
 #### `CUBEJS_DB_TYPE`
 Database engine for Plio. It should be `bigquery`.
@@ -41,7 +41,7 @@ cat /path/to/gcp-service-account-filename.json | base64
 ```
 
 #### `CUBEJS_DB_BQ_LOCATION`
-The region of your bigquery setup in Google Cloud Console. You can check this from the dataset info section mentioned above. You can find all supported regions [here](https://cloud.google.com/bigquery/docs/locations#regional-locations).
+The region of your bigquery setup in Google Cloud Console. You can check this from the dataset info section from BigQuery dashboard. You can find all supported regions [here](https://cloud.google.com/bigquery/docs/locations#regional-locations).
 
 
 ### Local development server
