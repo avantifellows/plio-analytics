@@ -19,8 +19,10 @@ Deploying on AWS requires a basic understanding of the following tools and servi
 9. AWS Elastic IPs
 10. AWS Identity and Access Management (IAM)
 11. AWS Relational Database Service (RDS)
+12. BigQuery (recommended)
 
 ## Staging
+We recommend using BigQuery as your Cube.js datastore instead of using the same RDS Postgres database as your Frontend application. To automate data transfer from your RDS instance to your BigQuery datastore, please visit our [plio-rds-to-bigquery repository](https://github.com/avantifellows/plio-rds-to-bigquery#readme).
 
 ### Continuous Delivery process
 
@@ -98,11 +100,17 @@ Follow the steps below to set up the staging environment on AWS.
     4. Create a new container with name `plio-analytics-staging`.
     5. In the image field, you can just type in `image_arn`. This is not a valid entry and just a placeholder for now as it'll be replaced by the actual image ARN once the GitHub workflow triggers.
     6. Enter port `80` in the port mapping field.
-    7. Use the `.env.example` file to set all the required environment variables for your container in the `Environment Variables` section.
-       1. Set all `CUBEJS_DB_*` variables to your AWS RDS setup. `CUBEJS_DB_TYPE` should be postgres.
-       2. For production, set `CUBEJS_DEV_MODE` to false.
-       3. Ignore the variables under `local web server`.
-       4. Leave the variables `CUBEJS_REDIS_URL` and `CUBEJS_REDIS_PASSWORD` as empty for now. We'll fill them up later.
+    7. Use the `.env.example` file or our [ENV guide](ENV.md) to set all the required environment variables for your container in the `Environment Variables` section.
+       1. For production, set `CUBEJS_DEV_MODE` to false.
+       2. Ignore the variables under `local web server`.
+       3. Leave the variables `CUBEJS_REDIS_URL` and `CUBEJS_REDIS_PASSWORD` as empty for now. We'll fill them up later.
+       4. If you're using BigQuery (recommended)
+          1. `CUBEJS_DB_TYPE` should be `bigquery`.
+          2. Set all `CUBEJS_DB_BQ_*` variables to your BigQuery setup.
+          3. Save the container definition and the task definition.
+       5. If you're using Postgres DB
+          1. `CUBEJS_DB_TYPE` should be `postgres`.
+          2. Set all `CUBEJS_DB_*` variables to your AWS RDS setup.
     8.  Save the container definition and the task definition.
     9.  You will see the new task definition within the list of all task definitions.
 
