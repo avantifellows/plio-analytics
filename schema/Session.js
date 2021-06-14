@@ -139,9 +139,8 @@ cube(`GroupedSessionRetention`, {
           SELECT
             session_id,
             plio_id,
-            user_id,
-            UNNEST(string_to_array(retention, ','))::int AS retention_array
-          FROM ${GroupedSession.sql()} AS session
+            user_id
+          FROM ${GroupedSession.sql()} AS session, UNNEST(SPLIT(session.retention, ',')) AS retention_array
           WHERE retention NOT LIKE '%NaN%'
           ) AS B
         ) AS C
