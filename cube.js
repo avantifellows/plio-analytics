@@ -1,6 +1,10 @@
 const dbSchemas = require("./dbSchemas");
 
 module.exports = {
+  schemaPath:
+    process.env.CUBEJS_DB_TYPE == "postgres"
+      ? "/schema/postgres"
+      : "/schema/bigquery",
   scheduledRefreshContexts: async () => {
     return dbSchemas;
   },

@@ -80,7 +80,7 @@ cube(`GroupedSession`, {
         session.retention,
         ROW_NUMBER() OVER(PARTITION BY session.user_id, session.plio_id
                           ORDER BY session.watch_time DESC) AS rank
-        FROM "public"."session"
+        FROM ${tenantSchema}.session
      )
     SELECT *
         FROM summary
@@ -133,18 +133,18 @@ cube(`GroupedSessionRetention`, {
       SUM(retention_array) as postOneMinuteRetentionSum
     FROM (
         SELECT
-          ROW_NUMBER() OVER (PARTITION BY user_id, plio_id) AS index,
-          *
+        ROW_NUMBER() OVER (PARTITION BY user_id, plio_id) AS index,
+        *
         FROM (
-          SELECT
+            SELECT
             session_id,
             plio_id,
             user_id,
-            UNNEST(string_to_array(retention, ','))::int AS retention_array
-          FROM ${GroupedSession.sql()} AS session
-          WHERE retention NOT LIKE '%NaN%'
-          ) AS B
-        ) AS C
+            CAST(retention_array AS INT) as retention_array
+            FROM ${GroupedSession.sql()} AS session, UNNEST(string_to_array(retention, ',')) AS retention_array
+            WHERE retention NOT LIKE '%NaN%'
+        ) AS B
+    ) AS C
     WHERE index >= 60
     GROUP BY plio_id, user_id, session_id
   `,
