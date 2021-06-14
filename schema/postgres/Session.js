@@ -80,7 +80,7 @@ cube(`GroupedSession`, {
         session.retention,
         ROW_NUMBER() OVER(PARTITION BY session.user_id, session.plio_id
                           ORDER BY session.watch_time DESC) AS rank
-        FROM public.session
+        FROM ${tenantSchema}.session
      )
     SELECT *
         FROM summary
