@@ -111,7 +111,8 @@ Follow the steps below to set up the staging environment on AWS.
        5. If you're using Postgres DB
           1. `CUBEJS_DB_TYPE` should be `postgres`.
           2. Set all `CUBEJS_DB_*` variables to your AWS RDS setup.
-    8.  You will see the new task definition within the list of all task definitions.
+    8.  Save the container definition and the task definition.
+    9.  You will see the new task definition within the list of all task definitions.
 
 8. Under ECS, go to `Clusters` and create a new cluster with the name `plio-staging-cluster`. (skip this step if you've already created a Cluster when setting up the frontend/backend repository)
     1. Select `Networking only`. We will go with serverless deployment so that we don't worry about managing our own server instances.

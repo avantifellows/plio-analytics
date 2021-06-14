@@ -103,7 +103,8 @@ cube(`AggregateSessionMetrics`, {
       ROW_NUMBER() OVER (ORDER BY plio_id, user_id) as id,
       plio_id,
       user_id,
-      COUNT(case when answer IS NULL then NULL else 1 end) AS num_answered,
+      COUNT(case when question_type = 'mcq' AND answer IS NULL THEN NULL when question_type = 'subjective' AND answer IS NULL then NULL else 1 end) AS num_answered,
+      COUNT(case when question_type = 'mcq' AND answer IS NOT NULL THEN 1 else NULL end) AS num_answered_evaluation,
       COUNT(case when question_type = 'mcq' AND answer = question_correct_answer then 1 else NULL end) AS num_correct,
       COUNT(*) AS num_questions
     FROM ${GroupedSessionAnswer.sql()} AS sessionAnswer
@@ -135,7 +136,7 @@ cube(`AggregateSessionMetrics`, {
       type: `avg`,
     },
     accuracy: {
-      sql: `100.0 * ${CUBE}.num_correct / NULLIF(${CUBE}.num_answered, 0)`,
+      sql: `100.0 * ${CUBE}.num_correct / NULLIF(${CUBE}.num_answered_evaluation, 0)`,
       type: `avg`,
     },
   },
