@@ -105,10 +105,10 @@ cube(`AggregateSessionMetrics`, {
       user_id,
       COUNT(case when question_type = 'mcq' AND answer IS NULL THEN NULL when question_type = 'subjective' AND answer IS NULL then NULL else 1 end) AS num_answered,
       COUNT(
-        case 
+        case
           when question_type = 'mcq' AND answer = question_correct_answer then 1
           when question_type = 'subjective' AND answer IS NOT NULL then 1
-          else NULL 
+          else NULL
         end
       ) AS num_correct,
       COUNT(*) AS num_questions
