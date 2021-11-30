@@ -103,10 +103,10 @@ cube(`AggregateSessionMetrics`, {
       ROW_NUMBER() OVER (ORDER BY plio_id, user_id) as id,
       plio_id,
       user_id,
-      COUNT(case when question_type = 'mcq' AND answer IS NULL THEN NULL when question_type = 'subjective' AND answer IS NULL then NULL else 1 end) AS num_answered,
+      COUNT(case when question_type IN ('mcq', 'checkbox') AND answer IS NULL THEN NULL when question_type = 'subjective' AND answer IS NULL then NULL else 1 end) AS num_answered,
       COUNT(
         case
-          when question_type = 'mcq' AND answer = question_correct_answer then 1
+          when question_type IN ('mcq', 'checkbox') AND answer = question_correct_answer then 1
           when question_type = 'subjective' AND answer IS NOT NULL then 1
           else NULL
         end
