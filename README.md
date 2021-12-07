@@ -11,3 +11,4 @@ Visit our [deployment guideline](docs/DEPLOYMENT.md) for setting up this reposit
 ## Contributing
 - [Pre-commit](docs/PRE-COMMIT.md)
 - [GitHub Workflows](docs/GITHUB-WORKFLOWS.md)
+- [Cypress](docs/CYPRESS.md)
