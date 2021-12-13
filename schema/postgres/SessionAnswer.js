@@ -60,11 +60,11 @@ cube(`GroupedSessionAnswer`, {
       question.type AS question_type,
 		  question.correct_answer AS question_correct_answer
     FROM ${GroupedSession.sql()} AS session
-    INNER JOIN ${SessionAnswer.sql()} as sessionAnswer
+    INNER JOIN ${SessionAnswer.sql()} AS sessionAnswer
     ON session.session_id=sessionAnswer.session_id
-    INNER JOIN ${Item.sql()} as item
+    INNER JOIN ${Item.sql()} AS item
     ON item.id=sessionAnswer.item_id
-    INNER JOIN ${Question.sql()} as question ON question.item_id = item.id`,
+    INNER JOIN ${Question.sql()} AS question ON question.item_id = item.id`,
 
   joins: {
     Session: {
@@ -100,16 +100,16 @@ cube(`GroupedSessionAnswer`, {
 cube(`AggregateSessionMetrics`, {
   sql: `
     SELECT
-      ROW_NUMBER() OVER (ORDER BY plio_id, user_id) as id,
+      ROW_NUMBER() OVER (ORDER BY plio_id, user_id) AS id,
       plio_id,
       user_id,
-      COUNT(case when question_type IN ('mcq', 'checkbox') AND answer IS NULL THEN NULL when question_type = 'subjective' AND answer IS NULL then NULL else 1 end) AS num_answered,
+      COUNT(CASE WHEN question_type IN ('mcq', 'checkbox', 'subjective') AND answer IS NULL THEN NULL ELSE 1 END) AS num_answered,
       COUNT(
-        case
-          when question_type IN ('mcq', 'checkbox') AND answer = question_correct_answer then 1
-          when question_type = 'subjective' AND answer IS NOT NULL then 1
-          else NULL
-        end
+        CASE
+          WHEN question_type IN ('mcq', 'checkbox') AND answer = question_correct_answer THEN 1
+          WHEN question_type = 'subjective' AND answer IS NOT NULL THEN 1
+          ELSE NULL
+        END
       ) AS num_correct,
       COUNT(*) AS num_questions
     FROM ${GroupedSessionAnswer.sql()} AS sessionAnswer

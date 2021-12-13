@@ -126,11 +126,11 @@ cube(`GroupedSession`, {
 cube(`GroupedSessionRetention`, {
   sql: `
     SELECT
-      ROW_NUMBER() OVER (ORDER BY user_id, plio_id) as id,
+      ROW_NUMBER() OVER (ORDER BY user_id, plio_id) AS id,
       session_id,
       plio_id,
       user_id,
-      SUM(retention_array) as postOneMinuteRetentionSum
+      SUM(retention_array) AS postOneMinuteRetentionSum
     FROM (
         SELECT
         ROW_NUMBER() OVER (PARTITION BY user_id, plio_id) AS index,
@@ -140,7 +140,7 @@ cube(`GroupedSessionRetention`, {
             session_id,
             plio_id,
             user_id,
-            CAST(retention_array AS INT) as retention_array
+            CAST(retention_array AS INT) AS retention_array
             FROM ${GroupedSession.sql()} AS session, UNNEST(string_to_array(retention, ',')) AS retention_array
             WHERE retention NOT LIKE '%NaN%'
         ) AS B
@@ -177,7 +177,7 @@ cube(`GroupedSessionRetention`, {
       type: `count`,
     },
     averageOneMinuteRetention: {
-      sql: `100 * CASE WHEN postOneMinuteRetentionSum > 0 then 1 else 0 end`,
+      sql: `100 * CASE WHEN postOneMinuteRetentionSum > 0 THEN 1 ELSE 0 END`,
       type: `avg`,
     },
   },
