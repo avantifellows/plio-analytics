@@ -2,6 +2,7 @@
 node_modules
 /dist
 dist/
+.cubestore/
 
 # local env files
 .env.local
