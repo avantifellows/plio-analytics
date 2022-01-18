@@ -21,6 +21,9 @@ Fixes #{issue id}
 
 <!-- Demonstrate that the code is solid. Example: The exact commands you ran and their output, screenshots / videos if the pull request changes the user interface. -->
 - [ ] Schema file code updates are made for both BigQuery and Postgres
+- [ ] If adding any new environment variable:
+    - [ ] update `docs/ENV.md`
+    - [ ] update the secrets for staging and production
 - [ ] Tested locally
 - [ ] Tested on staging
 - [ ] Tested on production
