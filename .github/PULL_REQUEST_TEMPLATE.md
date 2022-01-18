@@ -23,7 +23,7 @@ Fixes #{issue id}
 - [ ] Schema file code updates are made for both BigQuery and Postgres
 - [ ] If adding any new environment variable:
     - [ ] update `docs/ENV.md`
-    - [ ] update the secrets for staging and production
+    - [ ] update the environment variables for staging and production
 - [ ] Tested locally
 - [ ] Tested on staging
 - [ ] Tested on production
